@@ -15,7 +15,7 @@ telegram_exec=$HOME/apps/Telegram/Telegram
 
 if [ -z $suffix ] ; then
   echo "Missing prefix; Get help from the 'ls' below"
-  ls -l $datadirs
+  ls -l $datadirs/
   exit
 fi
 
