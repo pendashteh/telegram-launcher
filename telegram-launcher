@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+suffix=$1
+
+datadirs=$HOME/.telegram-launcher
+if [ ! -e $datadirs ]; then
+  mkdir $datadirs
+fi
+
+custom_datadir=$datadirs/TelegramDesktop-$suffix
+
+telegram_datadir=$HOME/.local/share/TelegramDesktop
+
+telegram_exec=$HOME/apps/Telegram/Telegram
+
+if [ -z $suffix ] ; then
+  echo "Missing prefix; Get help from the 'ls' below"
+  ls -l $datadirs
+  exit
+fi
+
+if [ -e $telegram_datadir && ! -L $telegram_datadir ] ; then
+  echo "Data Dir is not a link: $telegram_datadir"
+  echo "You need to manually delete it."
+  exit
+fi
+
+# Make sure the datadir for this profile exists
+mkdir -p $custom_datadir
+
+# Remove existing symlink
+rm -r $telegram_datadir
+
+# Link this profile's datadir
+ln -s $custom_datadir $telegram_datadir
+
+# kill running Telegram
+# @TODO ask user first
+pkill -f Telegram
+
+$telegram_exec
+
