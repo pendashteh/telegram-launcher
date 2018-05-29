@@ -19,7 +19,7 @@ if [ -z $suffix ] ; then
   exit
 fi
 
-if [ -e $telegram_datadir && ! -L $telegram_datadir ] ; then
+if [ -e $telegram_datadir ] && [ ! -L $telegram_datadir ] ; then
   echo "Data Dir is not a link: $telegram_datadir"
   echo "You need to manually delete it."
   exit
